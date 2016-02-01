@@ -1,0 +1,23 @@
+<h1>ndex</h1>
+<p>I am from index page</p>
+
+<br>
+<!-- This is equal to HTML link -->
+<%= link_to("rails link to page hello", {:action => 'hello'}) %> <br>
+
+<!-- passing parameters with link(Dynamic values also passed in same way) -->
+<%= link_to("rails link with parameters", {:action => 'hello', :id => 1, :name => 'Deva', :page => 20}) %>
+
+
+<!-- these are the ways to use ruby code inside .erb files -->
+<%  5 * 5 %> <br>
+
+<%= 5 * 5 %> <br>
+
+<% last_name = "Raj" %>
+
+<%= "Hi Deva #{last_name}" %> <br>
+
+<% 5.times do %>
+	<%= "Diplay 5 times" %> <br>
+<% end %>	

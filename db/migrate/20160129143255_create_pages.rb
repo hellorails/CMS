@@ -1,8 +1,18 @@
 class CreatePages < ActiveRecord::Migration
-  def change
+  def up
     create_table :pages do |t|
-
+      t.integer :subject_id
+      t.string  :name
+      t.string  :plink
+      t.integer :position
+      t.boolean :visibility, :default => false 
       t.timestamps null: false
     end
+    add_index("pages", "subject_id")
+    add_index("pages", "plink")
+  end
+
+  def down
+  	drop_table :pages
   end
 end
