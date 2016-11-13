@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+
+
   # get 'demo/index'
 
-  match ":controller(/:action(/:id))" ,:via => :get
+  # match ":controller(/:action(/:id))" ,:via => [:get, :post]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -16,7 +18,9 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+    resources :steps do
+
+    end
 
   # Example resource route with options:
   #   resources :products do
@@ -57,4 +61,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  mount Blorgh::Engine, at: "/blorgh"
 end

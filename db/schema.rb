@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130165843) do
+ActiveRecord::Schema.define(version: 20161113101210) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "admin_user_id", limit: 4
@@ -36,6 +36,27 @@ ActiveRecord::Schema.define(version: 20160130165843) do
   create_table "admin_users_pages", id: false, force: :cascade do |t|
     t.integer "admin_user_id", limit: 4
     t.integer "page_id",       limit: 4
+  end
+
+  create_table "blog_users", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "blorgh_articles", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.text     "text",       limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "author_id",  limit: 4
+  end
+
+  create_table "blorgh_comments", force: :cascade do |t|
+    t.integer  "article_id", limit: 4
+    t.text     "text",       limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "pages", force: :cascade do |t|
@@ -71,6 +92,14 @@ ActiveRecord::Schema.define(version: 20160130165843) do
   end
 
   add_index "sections", ["page_id"], name: "index_sections_on_page_id", using: :btree
+
+  create_table "steps", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
+    t.integer  "header_line", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "subjects", force: :cascade do |t|
     t.string   "name",       limit: 255

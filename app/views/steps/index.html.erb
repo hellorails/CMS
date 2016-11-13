@@ -1,0 +1,101 @@
+<div id="example-manipulation">
+    <h3>Add Step</h3>
+    <section>
+        <p>
+            <form action="steps/create" id="my-form">
+            <label for="position-3">Position (zero-based) *</label><br />
+            <input name='a[name]' id="position-3" type="text"><br />
+            <label for="title2-3">HTML Title *</label><br />
+            <input name='a[description]'  id="title2-3" type="textarea"><br />
+            <label for="text2-3">HTML Content *</label><br />
+            <textarea name='a[header_line]'  id="text2-3" rows="5"></textarea>
+            </form>
+        </p>
+        <p> <input name='a[header]'  id="header" type="text"> 
+            <input type="checkbox" name="conf" id="conf"  value="Bike">Confidential 
+            <a href="javascript:void(0);" onclick="callMyMethod();">
+            
+            Add</a></p>
+        <p>(*) Mandatory</p>
+
+        <div class="container">
+      
+          <ul class="list-group ul_list">
+
+          </ul>
+        </div>
+    </section>
+    <h3>Insert Step</h3>
+    <section>
+
+    
+  <ul class="list-group">
+    <li class="list-group-item">First item</li>
+    <li class="list-group-item">Second item</li>
+    <li class="list-group-item">Third item</li>
+  </ul>
+        <p><a href="javascript:void(0);" onclick="callMyMethod()">Insert</a></p>
+        <p>(*) Mandatory</p>
+    </section>
+    
+</div>
+
+<script type="text/javascript">
+$("#example-manipulation").steps({
+    headerTag: "h3",
+    bodyTag: "section",
+    transitionEffect: "slideLeft",
+    onStepChanging: function (event, currentIndex, newIndex)
+    {
+        // form.validate().settings.ignore = ":disabled,:hidden";
+        // return form.valid();
+        alert(currentIndex);
+        var a= true;
+         $.ajax({
+      type: 'get',
+      url: "<%= step_path(1) %>",
+      data: $('#my-form').serialize(),
+      dataType: "text",
+      success: function(resultData) { a=true; }
+
+});
+
+      if (currentIndex <= 0){
+         $("#my-form :input").attr("disabled", true);
+         $('.rmf').closest('span').remove()
+      }
+
+        
+       return a;
+    },
+    onFinishing: function (event, currentIndex)
+    {
+        // form.validate().settings.ignore = ":disabled";
+        // return form.valid();
+        alert('onFinishing');
+        return true;
+    },
+    onFinished: function (event, currentIndex)
+    {
+        alert("Submitted!");
+    }
+});
+
+
+$(document).on('click', '.rmf', function(){
+    $(this).closest('li').remove();
+});
+
+function callMyMethod() {
+    if ($('#conf').is(':checked')){
+        var div = "<li class='list-group-item list-group-item-info'>"
+    }
+    else
+    {
+        var div = "<li class='list-group-item'>"
+    }
+    
+    div +=   $('#header').val()  +" <span class='glyphicon glyphicon-trash rmf' aria-hidden='true'></span></li>"
+    $('.ul_list').append(div);
+}
+</script>
